@@ -1,28 +1,22 @@
 const mongoose = require('mongoose');
+const validatorPac = require('validator');
 
 const userSchema = new mongoose.Schema({
-    // name: {
-    //     type: String,
-    //     required: false,
-    // },
     email: {
         type: String,
         required: true,
-        unique: [true]
+        unique: [true],
+        validate: {
+            validator: validatorPac.isEmail,
+            message: '{VALUE} is not a valid email',
+            isAsync: false
+        }
     },
     created: {
         type: String,
         default: new Date().toISOString(),
     },
-    // password: {
-    //     type: String,
-    //     required: true,
-    // },
-    // lastActive: {
-    //     type: String,
-    //     required: false,
-    // },
-    active: {
+    isVarified: {
         type: Boolean,
         default: false,
     },
